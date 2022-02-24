@@ -12,36 +12,21 @@ func main() {
 	slice := generateSlice(24)
 	fmt.Printf(" -- Unsorted --\n%v\n\n", slice)
 
-	// Make copy of initial slice for selection sort algorithm
+	// Selection Sort Algorithm
 	slice2 := make([]int, len(slice))
 	copy(slice2, slice)
-	fmt.Printf(" -- Selection Sort Algorithm --\n%v\n\n", selectionSort(slice2))
+	fmt.Printf(" -- Selection Sort Algorithm --\n%v\n\n", SelectionSort(slice2))
 
-	// Make copy of initial slice for bubblesort algorithm
+	// BubbleSort Algorithm
 	slice3 := make([]int, len(slice))
 	copy(slice3, slice)
-	fmt.Printf(" -- Bubblesort Algorithm --\n%v\n\n", bubbleSort(slice3))
-}
+	fmt.Printf(" -- Bubblesort Algorithm --\n%v\n\n", BubbleSort(slice3))
 
-func bubbleSort(slice3 []int) []int {
+	// InsertionSort Algorithm
+	slice4 := make([]int, len(slice))
+	copy(slice4, slice)
+	fmt.Printf(" -- Insertion Sort Algorithm --\n%v\n\n", InsertionSort(slice4))
 
-	length := len(slice3)
-	sorted := false
-
-	for !sorted {
-		swapped := false
-		for ind := 0; ind < length-1; ind++ {
-			if slice3[ind] > slice3[ind+1] {
-				slice3[ind+1], slice3[ind] = slice3[ind], slice3[ind+1]
-				swapped = true
-			}
-		}
-		if !swapped {
-			sorted = true
-		}
-		length = length - 1
-	}
-	return slice3
 }
 
 func generateSlice(size int) []int {
@@ -53,7 +38,42 @@ func generateSlice(size int) []int {
 	return slice
 }
 
-func selectionSort(slice []int) []int {
+func InsertionSort(slice []int) []int {
+	length := len(slice)
+	for outerInd := 0; outerInd < length; outerInd++ {
+		innerInd := outerInd
+		for innerInd > 0 {
+			if slice[innerInd-1] > slice[innerInd] {
+				slice[innerInd-1], slice[innerInd] = slice[innerInd], slice[innerInd-1]
+			}
+			innerInd = innerInd - 1
+		}
+	}
+	return slice
+}
+
+func BubbleSort(slice []int) []int {
+
+	length := len(slice)
+	sorted := false
+
+	for !sorted {
+		swapped := false
+		for ind := 0; ind < length-1; ind++ {
+			if slice[ind] > slice[ind+1] {
+				slice[ind+1], slice[ind] = slice[ind], slice[ind+1]
+				swapped = true
+			}
+		}
+		if !swapped {
+			sorted = true
+		}
+		length = length - 1
+	}
+	return slice
+}
+
+func SelectionSort(slice []int) []int {
 	var length = len(slice)
 	for outerInd := 0; outerInd < length; outerInd++ {
 		var minIdx = outerInd
